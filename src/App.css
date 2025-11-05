@@ -1,0 +1,365 @@
+.bg-layer {
+  position: fixed;
+  inset: 0;
+  background-image: url('/bg.jpg');
+  background-position: 110% 14%;
+  z-index: -2;
+}
+
+.blur-layer {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.3);
+  backdrop-filter: blur(5px);
+  z-index: -1;
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+  color: white;
+  padding: 2rem;
+}
+
+.title {
+  font-size: 60px;      
+  font-weight: 900;
+  text-align: center;
+  color: #fff;
+  animation: pop 2s infinite ease-in-out;
+  text-shadow: 0 0 12px rgba(255, 0, 150, 0.6);
+  margin-top: 200px;
+  margin-bottom: 100px;
+
+}
+
+@keyframes pop {
+  0% {
+    transform: scale(0.95);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(0.95);
+  }
+}
+
+
+.menu-btns {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.btn {
+  background: #ff6fa8;
+  color: white;
+  font-weight: 700;
+  text-decoration: none;
+  padding: 12px 28px;
+  border-radius: 10px;
+  font-size: 22px;
+  transition: 0.2s;
+  box-shadow: 0 0 8px rgba(255, 0, 150, 0.6);
+}
+
+.btn:hover {
+  transform: scale(1.08);
+  background: #ff4f94;
+}
+
+
+
+
+
+
+
+
+
+
+.dict-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding-top: 80px;
+  color: white;
+  text-align: center;
+}
+
+.dict-title {
+   font-size: 60px;      
+  font-weight: 900;
+  text-align: center;
+  color: #fff;
+}
+
+.search-box {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.search-box input {
+  width: 260px;
+  padding: 10px 14px;
+  font-size: 20px;
+  border-radius: 8px;
+  border: none;
+}
+
+.search-box button {
+  padding: 10px 20px;
+  font-size: 20px;
+  font-weight: 700;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  background: #ff6fa8;
+  color: white;
+  transition: 0.2s;
+}
+
+.search-box button:hover {
+  background: #ff4f94;
+  transform: scale(1.05);
+}
+
+.dict-result {
+  margin-top: 20px;
+  padding: 20px;
+  font-size: 22px;
+  background: rgb(255, 255, 255);
+  border-radius: 12px;
+}
+
+.mode-switch {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.mode-switch button {
+  padding: 10px 18px;
+  font-size: 20px;
+  font-weight: 700;
+  border-radius: 10px;
+  border: none;
+  background: #aaaaaa60;
+  color: white;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.mode-switch button.active {
+  background: #ff6fa8;
+  transform: scale(1.05);
+  box-shadow: 0 0 8px rgba(255, 0, 150, 0.6);
+}
+
+.dict-table {
+  width: 80%;
+  max-width: 800px;
+  margin: 20px auto;
+  border-collapse: collapse;
+  background: rgba(255, 255, 255, 0.193);
+  color: white;
+  font-size: 20px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.dict-table th,
+.dict-table td {
+  padding: 14px 18px;
+  border-bottom: 1px solid rgba(255,255,255,0.2);
+  text-align: left;
+}
+
+.dict-table th {
+  background: rgba(255,255,255,0.25);
+  font-weight: 700;
+}
+
+.dict-table tr:last-child td {
+  border-bottom: none;
+}
+
+
+
+
+
+
+.fc-title {
+   font-size: 60px;      
+  font-weight: 900;
+  text-align: center;
+  color: #fff;
+}
+
+
+/* toolbar */
+.fc-toolbar {
+  display: flex;
+  justify-content: center;  
+  margin: 10px 0 16px;
+}
+.fc-toolbar button {
+  padding: 8px 14px;
+  border: none;
+  border-radius: 10px;
+  background: #ffffff2b;
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+  margin-left: 25px;
+}
+.fc-progress {
+  opacity: .95;
+  color: #fff;
+  margin: 10px;
+  padding-left: 20px;
+}
+
+/* stage + thẻ */
+.fc-stage { text-align: center; }
+
+.fc-card {
+  position: relative;
+  width: min(780px, 92vw);
+  min-height: 260px;
+  margin: 12px auto;
+  perspective: 1000px;
+  cursor: pointer;
+}
+
+/* Hai mặt của thẻ */
+.fc-face {
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.352);
+  backdrop-filter: blur(6px);
+  box-shadow: 0 10px 30px rgba(0,0,0,.25);
+
+   display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  /* ✨ QUAN TRỌNG để không bị lật chữ ngược */
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+
+  transition: transform .55s ease, opacity .55s ease;
+}
+
+/* Trạng thái mặc định: mặt trước quay 0°, mặt sau quay 180° */
+.fc-front { transform: rotateY(0deg); }
+.fc-back  { transform: rotateY(180deg); }
+
+/* Khi lật: mặt trước quay -180°, mặt sau về 0° */
+.fc-card.flipped .fc-front { transform: rotateY(-180deg); opacity: 0; }
+.fc-card.flipped .fc-back  { transform: rotateY(0deg);    opacity: 1; }
+
+.fc-word {
+  font-size: clamp(28px, 6vw, 52px);
+  font-weight: 900;
+}
+
+.fc-pron {
+  font-size: 18px;
+  opacity: .9;
+  margin-bottom: 10px;
+}
+
+/* ✅ vùng nội dung mặt sau cho phép cuộn */
+.fc-meaning {
+  width: 100%;
+  max-height: 60vh;
+  overflow-y: auto;
+  margin-left: 30px;
+}
+
+/* scrollbar xinh */
+.fc-meaning::-webkit-scrollbar {
+  width: 8px;
+}
+.fc-meaning::-webkit-scrollbar-thumb {
+  background: #ffffff65;
+  border-radius: 4px;
+}
+
+/* điều hướng */
+.fc-nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin-top: 8px;
+}
+.fc-nav button {
+  padding: 8px 14px;
+  border: none;
+  border-radius: 10px;
+  background: #ffffff2b;
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+}
+.fc-nav button:disabled { opacity: .5; cursor: not-allowed; }
+
+/* lịch sử ngày */
+.fc-history { margin-top: 16px; }
+.fc-history-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.fc-history h3 { margin: 0; }
+.fc-clear {
+  margin-left: auto;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 8px;
+  background: #ffffff2b;
+  color: #fff;
+  cursor: pointer;
+}
+.fc-date-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+.fc-date {
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: none;
+  background: #ffffff2b;
+  color: #fff;
+  cursor: pointer;
+}
+.fc-date.active {
+  background: #ff6fa8;
+  box-shadow: 0 0 8px rgba(255,0,150,.6);
+}
+
+.defs { text-align: left; font-size: 18px; }
+.def-title {
+  margin: 10px 0 6px;
+  font-weight: 800;
+  color: #ffecb3;
+}
+.def-items { margin: 0 0 6px 14px; }
+.def-items li { margin: 3px 0; }
+
+/* states */
+.fc-empty, .fc-error {
+  margin: 28px 0;
+  font-size: 18px;
+}
+.fc-error { color: #ffe1e1; }
