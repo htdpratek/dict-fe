@@ -1,0 +1,42 @@
+name: trivy-install-test
+
+on:
+  push:
+    branches: [test/trivy-install]
+
+jobs:
+  test:
+    runs-on: ubuntu-24.04-arm
+    steps:
+      # Same block as the one now in every ci.yml template.
+      - name: Set up Trivy
+        shell: bash
+        run: |
+          set -euo pipefail
+          V=0.69.3
+          case "$(uname -m)" in
+            x86_64)  ARCH=64bit ;;
+            aarch64) ARCH=ARM64 ;;
+            *) echo "unsupported arch: $(uname -m)" >&2; exit 1 ;;
+          esac
+          BASE="https://github.com/aquasecurity/trivy/releases/download/v${V}"
+          curl -fsSL -O "${BASE}/trivy_${V}_Linux-${ARCH}.tar.gz"
+          curl -fsSL "${BASE}/trivy_${V}_checksums.txt" \
+            | grep " trivy_${V}_Linux-${ARCH}.tar.gz$" | sha256sum -c -
+          tar -xzf "trivy_${V}_Linux-${ARCH}.tar.gz" trivy
+          sudo install -m 0755 trivy /usr/local/bin/trivy
+          rm -f "trivy_${V}_Linux-${ARCH}.tar.gz" trivy
+          trivy --version
+
+      # Proves trivy-action with skip-setup-trivy finds the binary we installed.
+      - name: Trivy scan (Docker image)
+        uses: aquasecurity/trivy-action@57a97c7e7821a5776cebc9bb87c984fa69cba8f1
+        with:
+          image-ref: alpine:3.20
+          format: table
+          exit-code: "0"
+          ignore-unfixed: true
+          vuln-type: os,library
+          severity: CRITICAL,HIGH
+          scanners: vuln
+          skip-setup-trivy: true
