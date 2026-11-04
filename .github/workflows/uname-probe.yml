@@ -1,0 +1,22 @@
+name: uname-probe
+
+on:
+  push:
+    branches: [test/trivy-install]
+
+jobs:
+  probe:
+    runs-on: ubuntu-24.04-arm
+    steps:
+      # ::notice:: so the value is readable from the annotations API
+      # without signing in to read the job log.
+      - shell: bash
+        run: |
+          set -euo pipefail
+          M="$(uname -m)"
+          case "$M" in
+            x86_64)  ARCH=64bit ;;
+            aarch64) ARCH=ARM64 ;;
+            *) ARCH="UNMAPPED" ;;
+          esac
+          echo "::notice::uname -m=${M} | uname -s=$(uname -s) | mapped ARCH=${ARCH} | dpkg=$(dpkg --print-architecture)"
